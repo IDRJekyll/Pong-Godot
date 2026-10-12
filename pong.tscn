@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://cumb58pfew47m"]
+
+[ext_resource type="Script" uid="uid://bv8waeum5xdab" path="res://player.gd" id="1_8w31r"]
+[ext_resource type="Script" uid="uid://dgqumybjnf1m4" path="res://center_line.gd" id="1_m5tya"]
+[ext_resource type="Script" uid="uid://c5ktme8hejuti" path="res://ball.gd" id="2_4opyw"]
+[ext_resource type="Script" uid="uid://ba0383rakwb2w" path="res://enemy.gd" id="2_pkvn5"]
+[ext_resource type="Script" uid="uid://ckyu441m7cs1y" path="res://main_menu.gd" id="5_eipaa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ns8l"]
+size = Vector2(20, 100)
+
+[sub_resource type="Gradient" id="Gradient_m5tya"]
+offsets = PackedFloat32Array(0.27644232, 0.44471154, 0.5793269, 0.7235577)
+colors = PackedColorArray(0, 0, 0, 1, 0.5456731, 0.5456731, 0.5456731, 1, 0.84165156, 0.84165156, 0.84165156, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ns8l"]
+gradient = SubResource("Gradient_m5tya")
+width = 128
+height = 128
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n86im"]
+size = Vector2(1152, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x86cd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dcmos"]
+size = Vector2(1152, 20)
+
+[node name="Pong" type="Node2D" unique_id=1802397860]
+
+[node name="Background" type="ColorRect" parent="." unique_id=942235498]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+
+[node name="CenterLine" type="Line2D" parent="." unique_id=1856738700]
+width = 4.0
+script = ExtResource("1_m5tya")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=2112739820]
+position = Vector2(50, 300)
+script = ExtResource("1_8w31r")
+
+[node name="Glow" type="ColorRect" parent="Player" unique_id=1420736573]
+offset_left = -14.0
+offset_top = -54.0
+offset_right = 14.0
+offset_bottom = 54.0
+color = Color(0.46666667, 0.46666667, 0.46666667, 1)
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=1686544084]
+offset_left = -10.0
+offset_top = -50.0
+offset_right = 10.0
+offset_bottom = 50.0
+color = Color(0.9098039, 0.9098039, 0.9098039, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Visual" unique_id=1255256968]
+position = Vector2(10, 50)
+shape = SubResource("RectangleShape2D_4ns8l")
+
+[node name="GlowLight" type="PointLight2D" parent="Player" unique_id=1127282557]
+energy = 0.8
+texture = SubResource("GradientTexture2D_4ns8l")
+
+[node name="Enemy" type="CharacterBody2D" parent="." unique_id=518237066]
+position = Vector2(1102, 300)
+script = ExtResource("2_pkvn5")
+
+[node name="Glow" type="ColorRect" parent="Enemy" unique_id=1765692473]
+offset_left = -14.0
+offset_top = -54.0
+offset_right = 14.0
+offset_bottom = 54.0
+color = Color(0.46666667, 0.46666667, 0.46666667, 1)
+
+[node name="Visual" type="ColorRect" parent="Enemy" unique_id=1628224178]
+offset_left = -10.0
+offset_top = -50.0
+offset_right = 10.0
+offset_bottom = 50.0
+color = Color(0.9098039, 0.9098039, 0.9098039, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Visual" unique_id=2006867560]
+position = Vector2(10, 50)
+shape = SubResource("RectangleShape2D_4ns8l")
+
+[node name="GlowLight" type="PointLight2D" parent="Enemy" unique_id=1892825314]
+energy = 0.8
+texture = SubResource("GradientTexture2D_4ns8l")
+
+[node name="Topwall" type="StaticBody2D" parent="." unique_id=1342917553]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Topwall" unique_id=563489579]
+position = Vector2(576, 10)
+shape = SubResource("RectangleShape2D_n86im")
+
+[node name="Ball" type="CharacterBody2D" parent="." unique_id=1585553979]
+position = Vector2(576, 324)
+script = ExtResource("2_4opyw")
+
+[node name="Visual" type="ColorRect" parent="Ball" unique_id=564795841]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball/Visual" unique_id=127306503]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_x86cd")
+
+[node name="BottomWall" type="StaticBody2D" parent="." unique_id=1624242925]
+position = Vector2(576, 638)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall" unique_id=1366317943]
+shape = SubResource("RectangleShape2D_dcmos")
+
+[node name="UI" type="CanvasGroup" parent="." unique_id=1921032345]
+
+[node name="PlayerScore" type="Label" parent="UI" unique_id=1921305674]
+offset_left = 450.0
+offset_top = 40.0
+offset_right = 490.0
+offset_bottom = 63.0
+text = "0"
+
+[node name="EnemyScore" type="Label" parent="UI" unique_id=1214460410]
+offset_left = 680.0
+offset_top = 40.0
+offset_right = 720.0
+offset_bottom = 63.0
+text = "0"
+
+[node name="GameOver" type="Label" parent="UI" unique_id=1825487921]
+visible = false
+offset_left = 328.0
+offset_top = 159.0
+offset_right = 828.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 25
+text = "YOU WIN
+"
+horizontal_alignment = 1
+
+[node name="BackToMenuButton" type="Button" parent="UI" unique_id=929568050]
+visible = false
+offset_left = 538.0
+offset_top = 400.0
+offset_right = 613.0
+offset_bottom = 431.0
+text = "MENU
+"
+
+[node name="RestartButton" type="Button" parent="UI" unique_id=694473774]
+visible = false
+offset_left = 538.0
+offset_top = 340.0
+offset_right = 613.0
+offset_bottom = 371.0
+text = "RESTART
+"
+
+[node name="MainMenu" type="Control" parent="UI" unique_id=29868917]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_eipaa")
+
+[node name="Title" type="Label" parent="UI/MainMenu" unique_id=1361060282]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 115.0
+offset_right = 720.0
+offset_bottom = 228.0
+theme_override_font_sizes/font_size = 40
+text = "PONG
+"
+
+[node name="VsAiButton" type="Button" parent="UI/MainMenu" unique_id=1354485553]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 235.0
+offset_right = 725.0
+offset_bottom = 290.0
+theme_override_font_sizes/font_size = 33
+text = "VS AI
+"
+
+[node name="TwoPlayersButton" type="Button" parent="UI/MainMenu" unique_id=296334282]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 315.0
+offset_right = 725.0
+offset_bottom = 370.0
+theme_override_font_sizes/font_size = 32
+text = "2 PLAYERS
+"
+
+[node name="ExitButton" type="Button" parent="UI/MainMenu" unique_id=1911839794]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 400.0
+offset_right = 725.0
+offset_bottom = 455.0
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
+[node name="PaddleSound" type="AudioStreamPlayer2D" parent="." unique_id=1819698937]
+
+[connection signal="pressed" from="UI/BackToMenuButton" to="UI/MainMenu" method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="UI/RestartButton" to="Ball" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/MainMenu/VsAiButton" to="UI/MainMenu" method="_on_vs_ai_button_pressed"]
+[connection signal="pressed" from="UI/MainMenu/TwoPlayersButton" to="UI/MainMenu" method="_on_two_players_button_pressed"]
+[connection signal="pressed" from="UI/MainMenu/ExitButton" to="UI/MainMenu" method="_on_exit_button_pressed"]
