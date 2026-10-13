@@ -6,4 +6,4 @@ Controls:
 Default & Player 1: WASD
 Player 2 : Arrow keys
 
-Will attempt to add a way to play-test the game soon.
+Play-test the game: https://idrjekyll.github.io/Pong-Godot/
